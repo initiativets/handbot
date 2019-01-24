@@ -3,13 +3,15 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "nodemon --exec babel-node ./bin/www",
-    "build": "babel ./routes/ --out-dir dist",
-    "serve": "node ./dist/www"
+    "start": "node ./build/bin/www",
+    "start:dev": "nodemon --exec babel-node ./app/bin/www",
+    "build": "rm -rf ./build && mkdir build && babel --out-dir ./build --source-maps --copy-files ./app",
+    "babel-version": "babel-node --version"
   },
   "dependencies": {
     "@octokit/app": "^2.1.0",
     "@octokit/request": "^2.2.1",
+    "babel-polyfill": "^6.26.0",
     "cookie-parser": "~1.4.3",
     "dotenv": "^6.2.0",
     "express": "~4.16.0",
