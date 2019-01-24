@@ -1,8 +1,6 @@
-![Initiativet](http://initiativet.se/wp-content/uploads/2017/11/Initiativet_gr%C3%B6n-vit_2018.png)
-
 # Handbot
 
-Handbot is a bridge that allows the static website (Initativet Handbook)[https://github.com/initiativets/handbook] to access GitHub functionality. It facilitates the workflow of the `Handbook editorial process` - authentication, key management, creating issues for editing handbook content, setting labels, adding issues to the editorial project.
+Handbot is a bridge that allows the static website [Initativet Handbook](https://github.com/initiativets/handbook) to access GitHub functionality. It facilitates the workflow of the `Handbook editorial process` - authentication, key management, creating issues for editing handbook content, setting labels, adding issues to the editorial project.
 
 ## Installation on Digital Ocean
 
@@ -53,7 +51,7 @@ WantedBy=multi-user.target
 
 Start service: `sudo systemctl start node-app`
 
-*DONE*
+*DONE!*
 
 ---
 
