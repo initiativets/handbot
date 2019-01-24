@@ -10,7 +10,7 @@ function generateState (req) {
 }
 
 router.get('/:owner/:repo', function (req, res, next) {
-  req.session.redirect_url = req.headers.referer
+  req.session.redirect_url = req.query.redirect_url
 
   const uri = `https://github.com/login/oauth/authorize?client_id=${
     process.env.CLIENT_ID
