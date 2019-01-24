@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "nodemon --exec babel-node ./bin/www",
-    "production": "babel-node ./bin/www"
+    "build": "babel ./routes/ --out-dir dist",
+    "serve": "node ./dist/www"
   },
   "dependencies": {
     "@octokit/app": "^2.1.0",
@@ -22,6 +23,7 @@
     "morgan": "~1.9.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
     "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.2.3",
