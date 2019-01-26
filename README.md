@@ -49,6 +49,26 @@ Restart=on-failure
 WantedBy=multi-user.target
 ```
 
+### 6. Configure SSL Certificate (Let's Encrypt)
+
+Follow these guides:
+
+https://medium.com/@yash.kulshrestha/using-lets-encrypt-with-express-e069c7abe625
+https://www.sitepoint.com/how-to-use-ssltls-with-node-js/
+https://certbot.eff.org/docs/using.html#webroot
+
+And remember - Let's Encrypt certificates only last 3 months, don't forget to renew!
+
+```
+Your cert will expire on 2019-04-26. To obtain a new or tweaked
+version of this certificate in the future, simply run certbot
+again. To non-interactively renew *all* of your certificates, run
+"certbot renew"
+
+```
+
+### 7. Start service
+
 Start service: `sudo systemctl start node-app`
 
 *DONE!*
