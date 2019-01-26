@@ -9,47 +9,37 @@ require ('babel-polyfill')
 var app = require('../app')
 var debug = require('debug')('handbot:server')
 var http = require('http')
+var https = require("https")
+var fs = require ('fs')
 
-/**
- * Get port from environment and store in Express.
- */
-
-var port = normalizePort(process.env.PORT || '80')
-app.set('port', port)
+const options = {
+  key: fs.readFileSync("/etc/letsencrypt/live/handbot.fmckl.se/fullchain.pem"),
+  cert: fs.readFileSync("/etc/letsencrypt/live/handbot.fmckl.se/privkey.pem")
+};
 
 /**
  * Create HTTP server.
  */
 
-var server = http.createServer(app)
+var serverHTTP = http.createServer(app)
+serverHTTP.listen('80', () => {
+   app.emit('listeningHTTP', null)
+})
+
+var serverHTTPS = https.createServer(options, app)
+serverHTTPS.listen('443', () => {
+   app.emit('listeningHTTPS', null)
+})
 
 /**
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port)
-server.on('error', onError)
-server.on('listening', onListening)
+serverHTTP.on('error', onError)
+serverHTTPS.on('error', onError)
 
-/**
- * Normalize a port into a number, string, or false.
- */
-
-function normalizePort (val) {
-  var port = parseInt(val, 10)
-
-  if (isNaN(port)) {
-    // named pipe
-    return val
-  }
-
-  if (port >= 0) {
-    // port number
-    return port
-  }
-
-  return false
-}
+serverHTTP.on('listeningHTTP', onListeningHTTP)
+serverHTTPS.on('listeningHTTPS', onListeningHTTPS)
 
 /**
  * Event listener for HTTP server "error" event.
@@ -83,10 +73,18 @@ function onError (error) {
  * Event listener for HTTP server "listening" event.
  */
 
-function onListening () {
+function onListeningHTTP () {
   var addr = server.address()
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port
-  debug('Listening on ' + bind)
+  debug('HTTP - Listening on ' + bind)
+}
+
+function onListeningHTTPS () {
+  var addr = server.address()
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port
+  debug('HTTPS - Listening on ' + bind)
 }
